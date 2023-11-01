@@ -3,7 +3,6 @@ package lab2.lab2.Controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +21,11 @@ import lab2.lab2.Service.CourseService;
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
-    @Autowired
-    private final CourseService courseService = new CourseService();
+    private final CourseService courseService;
+
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @ApiOperation(value = "Create a new Student", response = Course.class)
     @PostMapping("/add")
@@ -49,11 +51,6 @@ public class CourseController {
         return courseService.update(id, course);
     }
 
-    @ApiOperation(value = "Delete the Course", response = Course.class)
-    @DeleteMapping("/")
-    public void delete(@RequestBody Course course) {
-        courseService.delete(course);
-    }
 
     @ApiOperation(value = "Delete the Course by ID", response = Course.class)
     @DeleteMapping("/{id}")

@@ -20,8 +20,9 @@ public class Student {
     private String email;
     private String major;
     private double gpa;
+    @OneToMany
     private List<Course> coursesTaken;
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "student")
     private List<Course> currentCourses;
 
     public Student(String firstName, String lastName, String email, String major, double gpa) {

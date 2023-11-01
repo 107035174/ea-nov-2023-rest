@@ -11,7 +11,6 @@ import lab2.lab2.Service.StudentService;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,10 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Api(tags = "Student management")
 @RestController
-@RequestMapping("students")
+@RequestMapping("/students")
 public class StudentController {
-    @Autowired
-    private final StudentService studentService = new StudentService();
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @ApiOperation(value = "Create a new Course", response = Course.class)
     @PostMapping("/add")
@@ -49,13 +51,7 @@ public class StudentController {
     @ApiOperation(value = "Edit Student information", response = Course.class)
     @PutMapping("/{id}")
     public Student update(@PathVariable Long id, @RequestBody Student student) {
-        return studentService.update(id, student);
-    }
-
-    @ApiOperation(value = "Delete a student", response = Course.class)
-    @DeleteMapping("/")
-    public void delete(@RequestBody Student student) {
-        studentService.delete(student);
+    return studentService.update(id, student);
     }
 
     @ApiOperation(value = "Delete a student by ID", response = Course.class)
@@ -64,9 +60,10 @@ public class StudentController {
         studentService.deleteById(id);
     }
 
-    @ApiOperation(value = "Get students by ID. Returns List<Student>", response = Course.class)
-    @GetMapping("/major/")
+    @ApiOperation(value = "Get students by ID. Returns List<Student>", response =
+    Course.class)
+    @GetMapping("/major")
     public List<Student> getStudentsByMajor(@RequestParam String major) {
-        return studentService.getStudentByMajor(major);
+    return studentService.getStudentByMajor(major);
     }
 }

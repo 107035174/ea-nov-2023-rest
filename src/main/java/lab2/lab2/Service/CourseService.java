@@ -3,7 +3,7 @@ package lab2.lab2.Service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lab2.lab2.Model.Course;
@@ -11,11 +11,14 @@ import lab2.lab2.Repository.CourseRepo;
 
 @Service
 public class CourseService {
-    @Autowired
-    private final CourseRepo courseRepo = new CourseRepo();
+    private final CourseRepo courseRepo;
 
-    public Course save(Course student) {
-        return courseRepo.save(student);
+    public CourseService(CourseRepo courseRepo) {
+        this.courseRepo = courseRepo;
+    }
+
+    public Course save(Course course) {
+        return courseRepo.save(course);
     }
 
     public Optional<Course> findById(Long id) {
@@ -28,10 +31,6 @@ public class CourseService {
 
     public Course update(Long id, Course course) {
         return courseRepo.update(id, course);
-    }
-
-    public void delete(Course course) {
-        courseRepo.delete(course);
     }
 
     public void deleteById(Long id) {

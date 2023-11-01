@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import lab2.lab2.Model.Course;
 
 @Repository
-public class CourseRepo {
+public class CourseRepo{
+    
+// } CourseRepo {
     private final List<Course> courses = new ArrayList<>();
 
     public Course save(Course course) {
